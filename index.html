@@ -58,7 +58,6 @@ th{position:sticky;top:0;background:#1c1608;color:var(--gold);font-weight:600}
   <input id="rate" type="number" inputmode="decimal" step="0.01" min="0" placeholder="سعر الفائدة % سنوياً" aria-label="سعر الفائدة">
   <select id="months" required aria-label="المدة"><option value="" selected disabled>المدة (بالشهور)</option></select>
   <input id="fee" type="number" inputmode="decimal" step="0.01" min="0" placeholder="المصاريف الإدارية % من القرض (اختياري)" aria-label="المصاريف الإدارية">
-  <input id="preFee" type="number" inputmode="decimal" step="0.01" min="0" placeholder="عمولة السداد المبكر % (اختياري)" aria-label="عمولة السداد المبكر">
   <button class="btn go" id="go" type="button">حساب القرض</button>
 
   <div class="grid">
@@ -71,14 +70,18 @@ th{position:sticky;top:0;background:#1c1608;color:var(--gold);font-weight:600}
   <div class="err" id="err"></div>
   <div class="acts">
     <button class="btn new" id="nw" type="button">إدخال جديد</button>
-    <button class="btn sv" id="ep" type="button">سداد مبكر</button>
     <button class="btn sv" id="sc" type="button">جدول السداد</button>
+    <button class="btn sv" id="ep" type="button">سداد مبكر</button>
   </div>
 </div>
 
 <div id="earlyPg" style="display:none">
-  <h2>حاسبة السداد المبكر</h2>
+  <h2>سداد مبكر</h2>
   <select id="payMonth" aria-label="شهر السداد المبكر"></select>
+  <input id="preFee" type="number" inputmode="decimal" step="0.01" min="0" placeholder="نسبة عمولة السداد المبكر % (اختياري)" aria-label="نسبة عمولة السداد المبكر">
+  <button class="btn go" id="calcEarlyBtn" type="button">حساب السداد المبكر</button>
+  <div class="err" id="earlyErr"></div>
+
   <div class="grid">
     <div class="c"><small>أصل الرصيد المتبقي</small><b id="eRem">—</b></div>
     <div class="c"><small>عمولة السداد المبكر</small><b id="eFee">—</b></div>
@@ -151,12 +154,11 @@ function calc(){
   const annualRate=parseNum($("rate").value);
   const n=parseInt($("months").value,10);
   const feePct=parseNum($("fee").value)||0;
-  const preFeePct=parseNum($("preFee").value)||0;
 
   if(!P||P<=0){$("err").textContent="من فضلك أدخل مبلغ قرض صحيح.";return null;}
   if(isNaN(annualRate)||annualRate<0){$("err").textContent="من فضلك أدخل سعر فائدة صحيح.";return null;}
   if(!n||n<=0){$("err").textContent="من فضلك اختر مدة القرض.";return null;}
-  if(feePct<0||preFeePct<0){$("err").textContent="النسب لا يمكن أن تكون سالبة.";return null;}
+  if(feePct<0){$("err").textContent="المصاريف الإدارية لا يمكن أن تكون سالبة.";return null;}
 
   const feeAmt=P*(feePct/100);
   const r=(annualRate/100)/12;
@@ -196,13 +198,20 @@ function calc(){
   $("r5").textContent=fmt(rows[0].pmt);
   $("r6").textContent="المعدل السنوي الفعلي: "+(isFinite(apr)?apr.toFixed(2)+"%":"—");
 
-  lastCalc={P,n,mode,totalInt,preFeePct,rows};
+  lastCalc={P,n,mode,totalInt,rows};
   return lastCalc;
 }
 
 function renderEarly(){
   if(!lastCalc)return;
-  const {P,n,mode:m,totalInt,preFeePct,rows}=lastCalc;
+  $("earlyErr").textContent="";
+  const preFeeRaw=parseNum($("preFee").value);
+  if(!isNaN(preFeeRaw)&&preFeeRaw<0){
+    $("earlyErr").textContent="نسبة العمولة لا يمكن أن تكون سالبة.";
+    return;
+  }
+  const preFeePct=isNaN(preFeeRaw)?0:preFeeRaw;
+  const {n,mode:m,totalInt,rows}=lastCalc;
   const k=Math.min(Math.max(parseInt($("payMonth").value,10)||1,1),n);
   const row=rows[k-1];
   const remPrincipal=row.bal;
@@ -234,6 +243,7 @@ $("nw").onclick=()=>{
   $("fee").value="";
   $("preFee").value="";
   $("err").textContent="";
+  $("earlyErr").textContent="";
   ["r1","r2","r3","r4","r5"].forEach(id=>$(id).textContent="—");
   $("r6").textContent="المعدل السنوي الفعلي: —";
   lastCalc=null;
@@ -255,6 +265,7 @@ $("ep").onclick=()=>{
   showScreen("earlyPg");
 };
 
+$("calcEarlyBtn").onclick=renderEarly;
 $("payMonth").onchange=renderEarly;
 $("bkEarly").onclick=()=>showScreen("main");
 
