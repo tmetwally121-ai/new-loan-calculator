@@ -8,33 +8,33 @@
 :root{--gold:#e6c673;--gold2:#a98b4a;--line:#5a4a26;--text:#f3efe6;--muted:#c4bba7;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
-body{margin:0;background:#000;color:var(--text);font-family:system-ui,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.38}
-.app{max-width:460px;margin:6px auto;padding:11px 12px 10px;border:1.5px solid var(--gold2);border-radius:20px;background:linear-gradient(160deg,#1a1a1a,#050505)}
-h1{color:var(--gold);text-align:center;font-size:1.18rem;margin:0 0 8px;padding-bottom:7px;border-bottom:1px solid var(--gold2)}
-.tabs{display:flex;gap:6px;margin-bottom:7px}
-.tab{flex:1;padding:7px 8px;border-radius:10px;border:1px solid var(--line);background:#111;color:var(--muted);font:inherit;font-size:.88rem;cursor:pointer}
+body{margin:0;background:#000;color:var(--text);font-family:system-ui,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.48}
+.app{max-width:470px;margin:10px auto;padding:15px 14px 13px;border:1.5px solid var(--gold2);border-radius:22px;background:linear-gradient(160deg,#1a1a1a,#050505)}
+h1{color:var(--gold);text-align:center;font-size:1.3rem;margin:0 0 11px;padding-bottom:10px;border-bottom:1px solid var(--gold2)}
+.tabs{display:flex;gap:8px;margin-bottom:10px}
+.tab{flex:1;padding:9px 10px;border-radius:11px;border:1px solid var(--line);background:#111;color:var(--muted);font:inherit;font-size:.94rem;cursor:pointer}
 .tab.on{border-color:var(--gold);color:var(--gold);background:linear-gradient(#2a2410,#0d0d0d)}
-input,select{width:100%;padding:8px 11px;margin-bottom:6px;border-radius:11px;border:1px solid #3a3a3a;background:#0b0b0b;color:var(--text);font:inherit;font-size:.94rem}
-input::placeholder{color:#8a826f;font-size:.84rem}
-select:invalid{color:#8a826f;font-size:.84rem}
-.btn{width:100%;padding:9px 10px;border-radius:11px;font:inherit;font-weight:700;cursor:pointer}
-.go{border:1px solid var(--gold);background:linear-gradient(#e9cb7a,#a97f2d);color:#1a1405;font-size:.96rem;margin:2px 0 7px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
-.c{border:1px solid #333;border-radius:11px;padding:6px 8px;text-align:center;background:#0b0b0b}
-.c small{display:block;color:var(--muted);font-size:.74rem}
-.c b{color:var(--gold);font-size:1.05rem;font-weight:500;font-variant-numeric:tabular-nums}
-.big{border:1px solid var(--gold2);border-radius:11px;padding:7px 10px;text-align:center;background:#120e04}
-.big small{color:var(--muted);font-size:.8rem}
-.big b{display:block;font-size:1.5rem;line-height:1.22;font-weight:500;font-variant-numeric:tabular-nums}
-.big em{font-style:normal;color:var(--gold);font-size:.84rem}
-.err{color:#f2a0a0;text-align:center;min-height:1em;font-size:.8rem;margin:2px 0}
-.acts{display:flex;gap:6px;margin-top:3px}
-.acts .btn{padding:8px 6px;font-size:.85rem;font-weight:500;background:#0b0b0b}
+input,select{width:100%;padding:10px 13px;margin-bottom:7px;border-radius:12px;border:1px solid #3a3a3a;background:#0b0b0b;color:var(--text);font:inherit;font-size:.98rem}
+input::placeholder{color:#8a826f;font-size:.88rem}
+select:invalid{color:#8a826f;font-size:.88rem}
+.btn{width:100%;padding:11px 12px;border-radius:12px;font:inherit;font-weight:700;cursor:pointer}
+.go{border:1px solid var(--gold);background:linear-gradient(#e9cb7a,#a97f2d);color:#1a1405;font-size:1rem;margin:3px 0 10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.c{border:1px solid #333;border-radius:12px;padding:9px 10px;text-align:center;background:#0b0b0b}
+.c small{display:block;color:var(--muted);font-size:.78rem;margin-bottom:2px}
+.c b{color:var(--gold);font-size:1.15rem;font-weight:500;font-variant-numeric:tabular-nums}
+.big{border:1px solid var(--gold2);border-radius:12px;padding:10px 12px;text-align:center;background:#120e04}
+.big small{color:var(--muted);font-size:.84rem}
+.big b{display:block;font-size:1.72rem;line-height:1.28;font-weight:500;font-variant-numeric:tabular-nums}
+.big em{font-style:normal;color:var(--gold);font-size:.9rem}
+.err{color:#f2a0a0;text-align:center;min-height:1.3em;font-size:.85rem;margin:4px 0 2px}
+.acts{display:flex;gap:8px;margin-top:6px}
+.acts .btn{padding:10px 8px;font-size:.9rem;font-weight:500;background:#0b0b0b}
 .new{border:1px solid #b4363a;color:#f4a3a5}
 .sv{border:1px solid var(--gold2);color:var(--gold)}
-.wrap{max-height:58vh;overflow:auto;border:1px solid #333;border-radius:11px;margin-bottom:8px}
-table{width:100%;border-collapse:collapse;font-size:.8rem;font-variant-numeric:tabular-nums}
-th,td{padding:6px 5px;text-align:center;border-bottom:1px solid #222;white-space:nowrap}
+.wrap{max-height:60vh;overflow:auto;border:1px solid #333;border-radius:12px;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:.83rem;font-variant-numeric:tabular-nums}
+th,td{padding:7px 5px;text-align:center;border-bottom:1px solid #222;white-space:nowrap}
 th{position:sticky;top:0;background:#1c1608;color:var(--gold);font-weight:600}
 </style>
 </head>
@@ -72,7 +72,7 @@ th{position:sticky;top:0;background:#1c1608;color:var(--gold);font-weight:600}
 </div>
 
 <div id="pg" style="display:none">
-  <h2 style="color:var(--gold);text-align:center;font-size:1.05rem;margin:0 0 8px">جدول السداد</h2>
+  <h2 style="color:var(--gold);text-align:center;font-size:1.1rem;margin:0 0 10px">جدول السداد</h2>
   <div class="wrap"><table><thead><tr><th>القسط</th><th>المبلغ</th><th>الفائدة</th><th>الأصل</th><th>الرصيد</th></tr></thead><tbody id="tb"></tbody></table></div>
   <button class="btn sv" id="bk" type="button">رجوع للحاسبة</button>
 </div>
@@ -106,6 +106,17 @@ $("amt").addEventListener("input",e=>{
   const intPart=Number(parts[0]).toLocaleString("en-US");
   e.target.value=parts.length>1?intPart+"."+parts[1].slice(0,2):intPart;
 });
+
+function calcIRR(netPrincipal,pmt,n){
+  if(netPrincipal<=0||pmt*n<=netPrincipal)return 0;
+  let lo=0,hi=1;
+  for(let k=0;k<60;k++){
+    const mid=(lo+hi)/2;
+    const pv=mid===0?pmt*n:pmt*(1-Math.pow(1+mid,-n))/mid;
+    if(pv>netPrincipal)lo=mid;else hi=mid;
+  }
+  return ((lo+hi)/2)*12*100;
+}
 
 function calc(){
   $("err").textContent="";
@@ -148,15 +159,13 @@ function calc(){
   }
 
   const totalPaid=P+totalInt+feeAmt;
-  const apr=mode==="reducing"
-    ?((Math.pow(1+(pmt/P>0?r:0),12)-1)*100)
-    :(((totalInt/(P*(n/12)))*100));
+  const apr=calcIRR(P-feeAmt,rows[0].pmt,n);
 
   $("r1").textContent=fmt(totalInt);
   $("r2").textContent=fmt(totalPaid);
   $("r3").textContent=fmt(feeAmt);
   $("r4").textContent=n;
-  $("r5").textContent=fmt(pmt);
+  $("r5").textContent=fmt(rows[0].pmt);
   $("r6").textContent="المعدل السنوي الفعلي: "+(isFinite(apr)?apr.toFixed(2)+"%":"—");
   lastRows=rows;
 }
