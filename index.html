@@ -57,14 +57,13 @@ th{position:sticky;top:0;background:#1c1608;color:var(--gold);font-weight:600}
   <input id="amt" type="text" inputmode="decimal" autocomplete="off" placeholder="مبلغ القرض" aria-label="مبلغ القرض">
   <input id="rate" type="number" inputmode="decimal" step="0.01" min="0" placeholder="سعر الفائدة % سنوياً" aria-label="سعر الفائدة">
   <select id="months" required aria-label="المدة"><option value="" selected disabled>المدة (بالشهور)</option></select>
-  <input id="fee" type="number" inputmode="decimal" step="0.01" min="0" placeholder="المصاريف الإدارية % من القرض (اختياري)" aria-label="المصاريف الإدارية">
   <button class="btn go" id="go" type="button">حساب القرض</button>
 
   <div class="grid">
     <div class="c"><small>إجمالي الفوائد</small><b id="r1">—</b></div>
     <div class="c"><small>إجمالي المسدد</small><b id="r2">—</b></div>
-    <div class="c"><small>المصاريف الإدارية</small><b id="r3">—</b></div>
-    <div class="c"><small>عدد الأقساط</small><b id="r4">—</b></div>
+    <div class="c"><small>عدد الأقساط</small><b id="r3">—</b></div>
+    <div class="c"><small>أصل القرض</small><b id="r4">—</b></div>
   </div>
   <div class="big"><small id="r0">القسط الشهري</small><b id="r5">—</b><em id="r6">المعدل السنوي الفعلي: —</em></div>
   <div class="err" id="err"></div>
@@ -137,13 +136,13 @@ $("amt").addEventListener("input",e=>{
   e.target.value=parts.length>1?intPart+"."+parts[1].slice(0,2):intPart;
 });
 
-function calcIRR(netPrincipal,pmt,n){
-  if(netPrincipal<=0||pmt*n<=netPrincipal)return 0;
+function calcIRR(principal,pmt,n){
+  if(principal<=0||pmt*n<=principal)return 0;
   let lo=0,hi=1;
   for(let k=0;k<60;k++){
     const mid=(lo+hi)/2;
     const pv=mid===0?pmt*n:pmt*(1-Math.pow(1+mid,-n))/mid;
-    if(pv>netPrincipal)lo=mid;else hi=mid;
+    if(pv>principal)lo=mid;else hi=mid;
   }
   return ((lo+hi)/2)*12*100;
 }
@@ -153,14 +152,11 @@ function calc(){
   const P=parseNum($("amt").value);
   const annualRate=parseNum($("rate").value);
   const n=parseInt($("months").value,10);
-  const feePct=parseNum($("fee").value)||0;
 
   if(!P||P<=0){$("err").textContent="من فضلك أدخل مبلغ قرض صحيح.";return null;}
   if(isNaN(annualRate)||annualRate<0){$("err").textContent="من فضلك أدخل سعر فائدة صحيح.";return null;}
   if(!n||n<=0){$("err").textContent="من فضلك اختر مدة القرض.";return null;}
-  if(feePct<0){$("err").textContent="المصاريف الإدارية لا يمكن أن تكون سالبة.";return null;}
 
-  const feeAmt=P*(feePct/100);
   const r=(annualRate/100)/12;
   let pmt=0,totalInt=0,bal=P,rows=[];
 
@@ -188,13 +184,13 @@ function calc(){
     }
   }
 
-  const totalPaid=P+totalInt+feeAmt;
-  const apr=calcIRR(P-feeAmt,rows[0].pmt,n);
+  const totalPaid=P+totalInt;
+  const apr=calcIRR(P,rows[0].pmt,n);
 
   $("r1").textContent=fmt(totalInt);
   $("r2").textContent=fmt(totalPaid);
-  $("r3").textContent=fmt(feeAmt);
-  $("r4").textContent=n;
+  $("r3").textContent=n;
+  $("r4").textContent=fmt(P);
   $("r5").textContent=fmt(rows[0].pmt);
   $("r6").textContent="المعدل السنوي الفعلي: "+(isFinite(apr)?apr.toFixed(2)+"%":"—");
 
@@ -240,7 +236,6 @@ $("nw").onclick=()=>{
   $("amt").value="";
   $("rate").value="";
   $("months").selectedIndex=0;
-  $("fee").value="";
   $("preFee").value="";
   $("err").textContent="";
   $("earlyErr").textContent="";
