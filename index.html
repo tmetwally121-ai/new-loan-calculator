@@ -8,35 +8,34 @@
 :root{--gold:#e6c673;--gold2:#a98b4a;--line:#5a4a26;--text:#f3efe6;--muted:#c4bba7;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
-body{margin:0;background:#000;color:var(--text);font-family:system-ui,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.6}
-.app{max-width:480px;margin:14px auto;padding:20px 16px;border:1.5px solid var(--gold2);border-radius:26px;background:linear-gradient(160deg,#1a1a1a,#050505)}
-h1{color:var(--gold);text-align:center;font-size:1.45rem;margin:4px 0 14px;padding-bottom:14px;border-bottom:1px solid var(--gold2)}
-.tabs{display:flex;gap:10px;margin-bottom:12px}
-.tab{flex:1;padding:12px;border-radius:12px;border:1px solid var(--line);background:#111;color:var(--muted);font:inherit;cursor:pointer}
+body{margin:0;background:#000;color:var(--text);font-family:system-ui,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.38}
+.app{max-width:460px;margin:6px auto;padding:11px 12px 10px;border:1.5px solid var(--gold2);border-radius:20px;background:linear-gradient(160deg,#1a1a1a,#050505)}
+h1{color:var(--gold);text-align:center;font-size:1.18rem;margin:0 0 8px;padding-bottom:7px;border-bottom:1px solid var(--gold2)}
+.tabs{display:flex;gap:6px;margin-bottom:7px}
+.tab{flex:1;padding:7px 8px;border-radius:10px;border:1px solid var(--line);background:#111;color:var(--muted);font:inherit;font-size:.88rem;cursor:pointer}
 .tab.on{border-color:var(--gold);color:var(--gold);background:linear-gradient(#2a2410,#0d0d0d)}
-input,select{width:100%;padding:12px 16px;margin-bottom:8px;border-radius:14px;border:1px solid #3a3a3a;background:#0b0b0b;color:var(--text);font:inherit;font-size:1.05rem}
-input::placeholder{color:#8a826f;font-size:.92rem}
-select:invalid{color:#8a826f;font-size:.92rem}
-.btn{width:100%;padding:14px;border-radius:14px;font:inherit;font-weight:700;cursor:pointer}
-.go{border:1px solid var(--gold);background:linear-gradient(#e9cb7a,#a97f2d);color:#1a1405;font-size:1.05rem;margin:4px 0 14px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.c{border:1px solid #333;border-radius:14px;padding:12px;text-align:center;background:#0b0b0b}
-.c small{display:block;color:var(--muted);font-size:.82rem}
-.c b{color:var(--gold);font-size:1.25rem;font-weight:500;font-variant-numeric:tabular-nums}
-.big{border:1px solid var(--gold2);border-radius:14px;padding:14px;text-align:center;background:#120e04}
-.big small{color:var(--muted)}
-.big b{display:block;font-size:2rem;font-weight:500;font-variant-numeric:tabular-nums}
-.big em{font-style:normal;color:var(--gold);font-size:1rem}
-.err{color:#f2a0a0;text-align:center;min-height:2.2em;font-size:.9rem;margin-bottom:6px}
-.acts{display:flex;gap:8px;margin:10px 0}
-.acts .btn{padding:12px 6px;font-size:.92rem;font-weight:500;background:#0b0b0b}
+input,select{width:100%;padding:8px 11px;margin-bottom:6px;border-radius:11px;border:1px solid #3a3a3a;background:#0b0b0b;color:var(--text);font:inherit;font-size:.94rem}
+input::placeholder{color:#8a826f;font-size:.84rem}
+select:invalid{color:#8a826f;font-size:.84rem}
+.btn{width:100%;padding:9px 10px;border-radius:11px;font:inherit;font-weight:700;cursor:pointer}
+.go{border:1px solid var(--gold);background:linear-gradient(#e9cb7a,#a97f2d);color:#1a1405;font-size:.96rem;margin:2px 0 7px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.c{border:1px solid #333;border-radius:11px;padding:6px 8px;text-align:center;background:#0b0b0b}
+.c small{display:block;color:var(--muted);font-size:.74rem}
+.c b{color:var(--gold);font-size:1.05rem;font-weight:500;font-variant-numeric:tabular-nums}
+.big{border:1px solid var(--gold2);border-radius:11px;padding:7px 10px;text-align:center;background:#120e04}
+.big small{color:var(--muted);font-size:.8rem}
+.big b{display:block;font-size:1.5rem;line-height:1.22;font-weight:500;font-variant-numeric:tabular-nums}
+.big em{font-style:normal;color:var(--gold);font-size:.84rem}
+.err{color:#f2a0a0;text-align:center;min-height:1em;font-size:.8rem;margin:2px 0}
+.acts{display:flex;gap:6px;margin-top:3px}
+.acts .btn{padding:8px 6px;font-size:.85rem;font-weight:500;background:#0b0b0b}
 .new{border:1px solid #b4363a;color:#f4a3a5}
 .sv{border:1px solid var(--gold2);color:var(--gold)}
-.wrap{max-height:62vh;overflow:auto;border:1px solid #333;border-radius:12px;margin-bottom:12px}
-table{width:100%;border-collapse:collapse;font-size:.85rem;font-variant-numeric:tabular-nums}
-th,td{padding:8px 6px;text-align:center;border-bottom:1px solid #222;white-space:nowrap}
+.wrap{max-height:58vh;overflow:auto;border:1px solid #333;border-radius:11px;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:.8rem;font-variant-numeric:tabular-nums}
+th,td{padding:6px 5px;text-align:center;border-bottom:1px solid #222;white-space:nowrap}
 th{position:sticky;top:0;background:#1c1608;color:var(--gold);font-weight:600}
-.foot{text-align:center;font-size:.8rem;color:var(--muted);margin-top:8px}
 </style>
 </head>
 <body>
@@ -73,5 +72,121 @@ th{position:sticky;top:0;background:#1c1608;color:var(--gold);font-weight:600}
 </div>
 
 <div id="pg" style="display:none">
-  <h2 style="color:var(--gold);text-align:center;font-size:1.15rem;margin:0 0 12px">جدول السداد</h2>
-  <div class="wrap"><table><thead><tr><th>القسط</th><th>المبلغ</th><th>الفائدة</th><th>الأصل</th><th>الرصيد</th></tr></thead>
+  <h2 style="color:var(--gold);text-align:center;font-size:1.05rem;margin:0 0 8px">جدول السداد</h2>
+  <div class="wrap"><table><thead><tr><th>القسط</th><th>المبلغ</th><th>الفائدة</th><th>الأصل</th><th>الرصيد</th></tr></thead><tbody id="tb"></tbody></table></div>
+  <button class="btn sv" id="bk" type="button">رجوع للحاسبة</button>
+</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const monthsSel=$("months");
+for(let m=6;m<=120;m+=6){
+  const o=document.createElement("option");
+  o.value=m;o.textContent=m+" شهر ("+(m/12).toFixed(m%12?1:0)+" سنة)";
+  monthsSel.appendChild(o);
+}
+
+let mode="reducing",lastRows=[];
+const fmt=n=>Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const parseNum=v=>parseFloat(String(v||"").replace(/,/g,"").trim());
+
+function setMode(m){
+  mode=m;
+  $("tm").classList.toggle("on",m==="reducing");
+  $("tf").classList.toggle("on",m==="flat");
+}
+$("tm").onclick=()=>setMode("reducing");
+$("tf").onclick=()=>setMode("flat");
+
+$("amt").addEventListener("input",e=>{
+  const raw=e.target.value.replace(/[^0-9.]/g,"");
+  const parts=raw.split(".");
+  if(!parts[0]){e.target.value="";return;}
+  const intPart=Number(parts[0]).toLocaleString("en-US");
+  e.target.value=parts.length>1?intPart+"."+parts[1].slice(0,2):intPart;
+});
+
+function calc(){
+  $("err").textContent="";
+  const P=parseNum($("amt").value);
+  const annualRate=parseNum($("rate").value);
+  const n=parseInt($("months").value,10);
+  const feePct=parseNum($("fee").value)||0;
+
+  if(!P||P<=0){$("err").textContent="من فضلك أدخل مبلغ قرض صحيح.";return;}
+  if(isNaN(annualRate)||annualRate<0){$("err").textContent="من فضلك أدخل سعر فائدة صحيح.";return;}
+  if(!n||n<=0){$("err").textContent="من فضلك اختر مدة القرض.";return;}
+  if(feePct<0){$("err").textContent="المصاريف الإدارية لا يمكن أن تكون سالبة.";return;}
+
+  const feeAmt=P*(feePct/100);
+  const r=(annualRate/100)/12;
+  let pmt=0,totalInt=0,bal=P,rows=[];
+
+  if(mode==="reducing"){
+    if(r===0){pmt=P/n;}
+    else{const f=Math.pow(1+r,n);pmt=(P*r*f)/(f-1);}
+    for(let i=1;i<=n;i++){
+      const interest=bal*r;
+      let principal=pmt-interest;
+      if(i===n){principal=bal;pmt=principal+interest;}
+      bal=Math.max(0,bal-principal);
+      totalInt+=interest;
+      rows.push({i,pmt,interest,principal,bal});
+    }
+  }else{
+    totalInt=P*(annualRate/100)*(n/12);
+    const totalLoanAndInt=P+totalInt;
+    pmt=totalLoanAndInt/n;
+    const principalFixed=P/n;
+    const interestFixed=totalInt/n;
+    for(let i=1;i<=n;i++){
+      bal=Math.max(0,P-(principalFixed*i));
+      if(i===n)bal=0;
+      rows.push({i,pmt,interest:interestFixed,principal:principalFixed,bal});
+    }
+  }
+
+  const totalPaid=P+totalInt+feeAmt;
+  const apr=mode==="reducing"
+    ?((Math.pow(1+(pmt/P>0?r:0),12)-1)*100)
+    :(((totalInt/(P*(n/12)))*100));
+
+  $("r1").textContent=fmt(totalInt);
+  $("r2").textContent=fmt(totalPaid);
+  $("r3").textContent=fmt(feeAmt);
+  $("r4").textContent=n;
+  $("r5").textContent=fmt(pmt);
+  $("r6").textContent="المعدل السنوي الفعلي: "+(isFinite(apr)?apr.toFixed(2)+"%":"—");
+  lastRows=rows;
+}
+
+$("go").onclick=calc;
+
+$("nw").onclick=()=>{
+  $("amt").value="";
+  $("rate").value="";
+  $("months").selectedIndex=0;
+  $("fee").value="";
+  $("err").textContent="";
+  ["r1","r2","r3","r4","r5"].forEach(id=>$(id).textContent="—");
+  $("r6").textContent="المعدل السنوي الفعلي: —";
+  lastRows=[];
+};
+
+$("sc").onclick=()=>{
+  if(!lastRows.length){calc();if(!lastRows.length)return;}
+  $("tb").innerHTML=lastRows.map(x=>
+    `<tr><td>${x.i}</td><td>${fmt(x.pmt)}</td><td>${fmt(x.interest)}</td><td>${fmt(x.principal)}</td><td>${fmt(x.bal)}</td></tr>`
+  ).join("");
+  $("main").style.display="none";
+  $("pg").style.display="block";
+};
+
+$("bk").onclick=()=>{
+  $("pg").style.display="none";
+  $("main").style.display="block";
+};
+</script>
+</body>
+</html>
