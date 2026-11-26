@@ -11,6 +11,7 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:#000;color:var(--text);font-family:system-ui,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.48}
 .app{max-width:470px;margin:10px auto;padding:15px 14px 13px;border:1.5px solid var(--gold2);border-radius:22px;background:linear-gradient(160deg,#1a1a1a,#050505)}
 h1{color:var(--gold);text-align:center;font-size:1.3rem;margin:0 0 11px;padding-bottom:10px;border-bottom:1px solid var(--gold2)}
+h2{color:var(--gold);text-align:center;font-size:1.12rem;margin:0 0 10px}
 .tabs{display:flex;gap:8px;margin-bottom:10px}
 .tab{flex:1;padding:9px 10px;border-radius:11px;border:1px solid var(--line);background:#111;color:var(--muted);font:inherit;font-size:.94rem;cursor:pointer}
 .tab.on{border-color:var(--gold);color:var(--gold);background:linear-gradient(#2a2410,#0d0d0d)}
@@ -28,19 +29,21 @@ select:invalid{color:#8a826f;font-size:.88rem}
 .big b{display:block;font-size:1.72rem;line-height:1.28;font-weight:500;font-variant-numeric:tabular-nums}
 .big em{font-style:normal;color:var(--gold);font-size:.9rem}
 .err{color:#f2a0a0;text-align:center;min-height:1.3em;font-size:.85rem;margin:4px 0 2px}
-.acts{display:flex;gap:8px;margin-top:6px}
-.acts .btn{padding:10px 8px;font-size:.9rem;font-weight:500;background:#0b0b0b}
+.acts{display:flex;gap:7px;margin-top:6px}
+.acts .btn{padding:10px 6px;font-size:.86rem;font-weight:500;background:#0b0b0b}
 .new{border:1px solid #b4363a;color:#f4a3a5}
 .sv{border:1px solid var(--gold2);color:var(--gold)}
 .wrap{max-height:60vh;overflow:auto;border:1px solid #333;border-radius:12px;margin-bottom:10px}
 table{width:100%;border-collapse:collapse;font-size:.83rem;font-variant-numeric:tabular-nums}
 th,td{padding:7px 5px;text-align:center;border-bottom:1px solid #222;white-space:nowrap}
 th{position:sticky;top:0;background:#1c1608;color:var(--gold);font-weight:600}
+.note{font-size:.8rem;color:var(--muted);text-align:center;margin:6px 0 10px}
 </style>
 </head>
 <body>
 <div class="app">
 <h1>حاسبة أقساط القروض</h1>
+
 <div id="main">
   <div class="tabs">
     <button class="tab on" id="tm" type="button">فائدة متناقصة</button>
@@ -55,6 +58,7 @@ th{position:sticky;top:0;background:#1c1608;color:var(--gold);font-weight:600}
   <input id="rate" type="number" inputmode="decimal" step="0.01" min="0" placeholder="سعر الفائدة % سنوياً" aria-label="سعر الفائدة">
   <select id="months" required aria-label="المدة"><option value="" selected disabled>المدة (بالشهور)</option></select>
   <input id="fee" type="number" inputmode="decimal" step="0.01" min="0" placeholder="المصاريف الإدارية % من القرض (اختياري)" aria-label="المصاريف الإدارية">
+  <input id="preFee" type="number" inputmode="decimal" step="0.01" min="0" placeholder="عمولة السداد المبكر % (اختياري)" aria-label="عمولة السداد المبكر">
   <button class="btn go" id="go" type="button">حساب القرض</button>
 
   <div class="grid">
@@ -67,12 +71,31 @@ th{position:sticky;top:0;background:#1c1608;color:var(--gold);font-weight:600}
   <div class="err" id="err"></div>
   <div class="acts">
     <button class="btn new" id="nw" type="button">إدخال جديد</button>
+    <button class="btn sv" id="ep" type="button">سداد مبكر</button>
     <button class="btn sv" id="sc" type="button">جدول السداد</button>
   </div>
 </div>
 
+<div id="earlyPg" style="display:none">
+  <h2>حاسبة السداد المبكر</h2>
+  <select id="payMonth" aria-label="شهر السداد المبكر"></select>
+  <div class="grid">
+    <div class="c"><small>أصل الرصيد المتبقي</small><b id="eRem">—</b></div>
+    <div class="c"><small>عمولة السداد المبكر</small><b id="eFee">—</b></div>
+    <div class="c"><small>الفوائد المدفوعة حتى الشهر</small><b id="ePaidInt">—</b></div>
+    <div class="c"><small>الوفورات في الفوائد</small><b id="eSave">—</b></div>
+  </div>
+  <div class="big">
+    <small>إجمالي المطلوب للسداد المبكر</small>
+    <b id="eTotal">—</b>
+    <em id="ePct">نسبة العمولة المطبقة: 0%</em>
+  </div>
+  <div class="note" id="eNote"></div>
+  <button class="btn sv" id="bkEarly" type="button">رجوع للحاسبة</button>
+</div>
+
 <div id="pg" style="display:none">
-  <h2 style="color:var(--gold);text-align:center;font-size:1.1rem;margin:0 0 10px">جدول السداد</h2>
+  <h2>جدول السداد</h2>
   <div class="wrap"><table><thead><tr><th>القسط</th><th>المبلغ</th><th>الفائدة</th><th>الأصل</th><th>الرصيد</th></tr></thead><tbody id="tb"></tbody></table></div>
   <button class="btn sv" id="bk" type="button">رجوع للحاسبة</button>
 </div>
@@ -87,9 +110,13 @@ for(let m=6;m<=120;m+=6){
   monthsSel.appendChild(o);
 }
 
-let mode="reducing",lastRows=[];
+let mode="reducing",lastCalc=null;
 const fmt=n=>Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 const parseNum=v=>parseFloat(String(v||"").replace(/,/g,"").trim());
+
+function showScreen(id){
+  ["main","earlyPg","pg"].forEach(s=>$(s).style.display=(s===id?"block":"none"));
+}
 
 function setMode(m){
   mode=m;
@@ -124,11 +151,12 @@ function calc(){
   const annualRate=parseNum($("rate").value);
   const n=parseInt($("months").value,10);
   const feePct=parseNum($("fee").value)||0;
+  const preFeePct=parseNum($("preFee").value)||0;
 
-  if(!P||P<=0){$("err").textContent="من فضلك أدخل مبلغ قرض صحيح.";return;}
-  if(isNaN(annualRate)||annualRate<0){$("err").textContent="من فضلك أدخل سعر فائدة صحيح.";return;}
-  if(!n||n<=0){$("err").textContent="من فضلك اختر مدة القرض.";return;}
-  if(feePct<0){$("err").textContent="المصاريف الإدارية لا يمكن أن تكون سالبة.";return;}
+  if(!P||P<=0){$("err").textContent="من فضلك أدخل مبلغ قرض صحيح.";return null;}
+  if(isNaN(annualRate)||annualRate<0){$("err").textContent="من فضلك أدخل سعر فائدة صحيح.";return null;}
+  if(!n||n<=0){$("err").textContent="من فضلك اختر مدة القرض.";return null;}
+  if(feePct<0||preFeePct<0){$("err").textContent="النسب لا يمكن أن تكون سالبة.";return null;}
 
   const feeAmt=P*(feePct/100);
   const r=(annualRate/100)/12;
@@ -167,35 +195,79 @@ function calc(){
   $("r4").textContent=n;
   $("r5").textContent=fmt(rows[0].pmt);
   $("r6").textContent="المعدل السنوي الفعلي: "+(isFinite(apr)?apr.toFixed(2)+"%":"—");
-  lastRows=rows;
+
+  lastCalc={P,n,mode,totalInt,preFeePct,rows};
+  return lastCalc;
 }
 
-$("go").onclick=calc;
+function renderEarly(){
+  if(!lastCalc)return;
+  const {P,n,mode:m,totalInt,preFeePct,rows}=lastCalc;
+  const k=Math.min(Math.max(parseInt($("payMonth").value,10)||1,1),n);
+  const row=rows[k-1];
+  const remPrincipal=row.bal;
+  const earlyFee=remPrincipal*(preFeePct/100);
+  const totalPayoff=remPrincipal+earlyFee;
+
+  let paidInt=0;
+  for(let idx=0;idx<k;idx++)paidInt+=rows[idx].interest;
+
+  const savedInt=Math.max(0,totalInt-paidInt);
+
+  $("eRem").textContent=fmt(remPrincipal);
+  $("eFee").textContent=fmt(earlyFee);
+  $("ePaidInt").textContent=fmt(paidInt);
+  $("eSave").textContent=fmt(savedInt);
+  $("eTotal").textContent=fmt(totalPayoff);
+  $("ePct").textContent="نسبة العمولة المطبقة: "+preFeePct+"% (بعد سداد "+k+" أقساط من "+n+")";
+  $("eNote").textContent=m==="flat"
+    ?"ملاحظة: في الفائدة الثابتة تُحسب الفوائد المتبقية تقديريًا من إجمالي فوائد المدة."
+    :"ملاحظة: يُحسب الرصيد المتبقي من أصل القرض بعد سداد "+k+" أقساط متناقصة.";
+}
+
+$("go").onclick=()=>calc();
 
 $("nw").onclick=()=>{
   $("amt").value="";
   $("rate").value="";
   $("months").selectedIndex=0;
   $("fee").value="";
+  $("preFee").value="";
   $("err").textContent="";
   ["r1","r2","r3","r4","r5"].forEach(id=>$(id).textContent="—");
   $("r6").textContent="المعدل السنوي الفعلي: —";
-  lastRows=[];
+  lastCalc=null;
 };
+
+$("ep").onclick=()=>{
+  const res=lastCalc||calc();
+  if(!res)return;
+  const sel=$("payMonth");
+  sel.innerHTML="";
+  for(let i=1;i<=res.n;i++){
+    const op=document.createElement("option");
+    op.value=i;
+    op.textContent="السداد بعد الشهر رقم "+i;
+    sel.appendChild(op);
+  }
+  if(res.n>=12)sel.value=12;
+  renderEarly();
+  showScreen("earlyPg");
+};
+
+$("payMonth").onchange=renderEarly;
+$("bkEarly").onclick=()=>showScreen("main");
 
 $("sc").onclick=()=>{
-  if(!lastRows.length){calc();if(!lastRows.length)return;}
-  $("tb").innerHTML=lastRows.map(x=>
+  const res=lastCalc||calc();
+  if(!res)return;
+  $("tb").innerHTML=res.rows.map(x=>
     `<tr><td>${x.i}</td><td>${fmt(x.pmt)}</td><td>${fmt(x.interest)}</td><td>${fmt(x.principal)}</td><td>${fmt(x.bal)}</td></tr>`
   ).join("");
-  $("main").style.display="none";
-  $("pg").style.display="block";
+  showScreen("pg");
 };
 
-$("bk").onclick=()=>{
-  $("pg").style.display="none";
-  $("main").style.display="block";
-};
+$("bk").onclick=()=>showScreen("main");
 </script>
 </body>
 </html>
